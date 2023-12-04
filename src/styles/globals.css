@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  /* color: #e4e6e5; */
+  padding: 0px;
+  margin: 0px;
+}
+
+.blackText {
+  color: "rgb(0,0,0)" !important;
+}
+
+input:hover {
+  cursor: pointer;
+}
+
+input {
+  color: "rgb(0,0,0)" !important;
+}
+
+.maxWidth {
+  width: 100vw;
+  max-width: 500px;
+}
