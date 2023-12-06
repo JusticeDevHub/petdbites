@@ -15,9 +15,11 @@ const disconnectDevice = async (req: NextApiRequest, res: NextApiResponse) => {
         connected: false,
       },
     });
-  } catch {}
 
-  res.status(200).json("-");
+    res.status(200).json("ok");
+  } catch {
+    res.status(200).json("");
+  }
 };
 
 export default disconnectDevice;

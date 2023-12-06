@@ -10,6 +10,7 @@ import { motion } from "framer-motion";
 import Button from "../../components/buttons/Button";
 import { z } from "zod";
 import { getTankAmount } from "../../utils/getTankAmount";
+import { NextRouter, useRouter } from "next/router";
 
 type ServerSidePropType = {
   devices: z.infer<typeof DeviceType>[];
@@ -19,6 +20,8 @@ const AdminPage = (props: ServerSidePropType) => {
   const [seletedDevice, setSelectedDevice] = useState<z.infer<
     typeof DeviceType
   > | null>(null);
+
+  const router = useRouter();
 
   useEffect(() => {
     props.devices.forEach((device: z.infer<typeof DeviceType>) => {
@@ -33,6 +36,7 @@ const AdminPage = (props: ServerSidePropType) => {
     <OrangeBackground>
       {seletedDevice !== null && (
         <ConfirmDisconnect
+          router={router}
           device={seletedDevice}
           setSelectedDevice={setSelectedDevice}
         />
@@ -124,9 +128,11 @@ const AdminPage = (props: ServerSidePropType) => {
 };
 
 const ConfirmDisconnect = ({
+  router,
   device,
   setSelectedDevice,
 }: {
+  router: NextRouter;
   device: z.infer<typeof DeviceType> | null;
   setSelectedDevice: Dispatch<
     SetStateAction<z.infer<typeof DeviceType> | null>
@@ -176,8 +182,11 @@ const ConfirmDisconnect = ({
                     .then((res) => {
                       return res.json();
                     })
-                    .then(() => {
-                      setSelectedDevice(null);
+                    .then((data) => {
+                      if (data === "ok") {
+                        setSelectedDevice(null);
+                        router.reload();
+                      }
                     });
                 }}
               ></Button>
