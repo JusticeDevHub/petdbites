@@ -6,7 +6,7 @@ import WhiteLine from "../../components/WhiteLines";
 import { PrismaClient } from "@prisma/client";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]";
-import { DeviceType } from "../../utils/dbSchemaTypes";
+import { type DeviceType } from "../../utils/dbSchemaTypes";
 import { z } from "zod";
 
 type ServerSidePropType = {

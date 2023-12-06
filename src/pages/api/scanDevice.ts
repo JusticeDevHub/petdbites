@@ -1,9 +1,9 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import { type NextApiRequest, type NextApiResponse } from "next";
 import { getServerSession } from "next-auth";
 import { authOptions } from "./auth/[...nextauth]";
 import { PrismaClient } from "@prisma/client";
 import { z } from "zod";
-import { DeviceType } from "../../utils/dbSchemaTypes";
+import { type DeviceType } from "../../utils/dbSchemaTypes";
 
 const scanDevice = async (req: NextApiRequest, res: NextApiResponse) => {
   const session = await getServerSession(req, res, authOptions);

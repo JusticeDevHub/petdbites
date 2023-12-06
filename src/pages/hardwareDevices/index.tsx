@@ -1,7 +1,7 @@
 import Image from "next/image";
 import OrangeBackground from "../../components/BackgroundColor/OrangeBackground";
 import { PrismaClient } from "@prisma/client";
-import { DeviceType } from "../../utils/dbSchemaTypes";
+import { type DeviceType } from "../../utils/dbSchemaTypes";
 import Title from "../../components/text/Title";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import QRCode from "qrcode";
@@ -10,7 +10,7 @@ import { motion } from "framer-motion";
 import Button from "../../components/buttons/Button";
 import { z } from "zod";
 import { getTankAmount } from "../../utils/getTankAmount";
-import { NextRouter, useRouter } from "next/router";
+import { type NextRouter, useRouter } from "next/router";
 
 type ServerSidePropType = {
   devices: z.infer<typeof DeviceType>[];
@@ -198,10 +198,10 @@ const ConfirmDisconnect = ({
   );
 };
 
-export async function getServerSideProps(context: any) {
+export async function getServerSideProps() {
   const prisma = new PrismaClient();
   const devices: z.infer<typeof DeviceType>[] =
-    await prisma.$queryRaw`SELECT * FROM Devices `;
+    await prisma.$queryRaw`SELECT * FROM Devices`;
   const props: ServerSidePropType = {
     devices,
   };
