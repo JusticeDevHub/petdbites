@@ -11,7 +11,7 @@ const Button = ({
 }) => {
   return (
     <button
-      className={`min-w-[300px] rounded-full p-3 font-bold ${className}`}
+      className={`w-full min-w-[150px] rounded-full p-3 font-bold ${className}`}
       style={{
         backgroundColor: buttonColor === "green" ? "#95FFCC" : "#FEA725",
         color: buttonColor === "green" ? "#365F4B" : "#FFF4E4",

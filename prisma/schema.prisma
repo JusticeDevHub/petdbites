@@ -64,3 +64,10 @@ model VerificationToken {
 
   @@unique([identifier, token])
 }
+
+model Devices {
+  id         String  @id @default(cuid())
+  email      String
+  deviceName String
+  connected  Boolean @default(false)
+}

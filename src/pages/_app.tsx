@@ -2,31 +2,21 @@ import Image from "next/image";
 import { type AppType } from "next/app";
 import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
+import { TbArrowBackUp } from "react-icons/tb";
 
 import "../styles/globals.css";
-import { useEffect, useState } from "react";
 import UserDataProvider from "../hooks/userDataContext";
+import { useRouter } from "next/router";
+import { motion } from "framer-motion";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
   pageProps: { session, ...pageProps },
 }) => {
-  const [showHeader, setShowHeader] = useState(true);
-
-  useEffect(() => {
-    if (session) {
-      setShowHeader(true);
-    } else {
-      setShowHeader(false);
-    }
-    setShowHeader(true);
-  }, []);
-
   return (
     <SessionProvider session={session}>
-      {showHeader && <Header />}
-
       <UserDataProvider>
+        <Header />
         <Component {...pageProps} />
       </UserDataProvider>
     </SessionProvider>
@@ -34,9 +24,29 @@ const MyApp: AppType<{ session: Session | null }> = ({
 };
 
 const Header = () => {
+  const router = useRouter();
+
+  if (router.pathname === "/") {
+    return null;
+  }
+
   return (
-    <div className="fixed z-50 flex w-full justify-end">
-      <div className="relative mr-4 mt-4 h-12 w-12 overflow-hidden rounded-full bg-white">
+    <div className="fixed z-50 flex w-full justify-between">
+      <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
+        <TbArrowBackUp
+          className="ml-3 mt-3 cursor-pointer text-4xl text-white"
+          onClick={() => {
+            router.back();
+          }}
+        />
+      </motion.div>
+
+      <div
+        className="relative mr-3 mt-3 h-12 w-12 cursor-pointer overflow-hidden rounded-full bg-white"
+        onClick={() => {
+          router.push("/profile");
+        }}
+      >
         <Image
           className=""
           src={"/dogImage.svg"}

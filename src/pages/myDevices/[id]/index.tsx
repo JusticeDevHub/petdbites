@@ -13,6 +13,8 @@ const reverseString = (str: string) => {
 };
 
 const DeviceDetails = () => {
+  const [deviceName, setDeviceName] = useState("");
+
   const pathName = usePathname();
   const deviceId = reverseString(
     reverseString(pathName || "").split("/")[0] || ""
@@ -63,12 +65,16 @@ const DeviceDetails = () => {
 
   useEffect(() => {
     setupFeedingData(1);
+
+    const params = new URLSearchParams(document.location.search);
+    const deviceName = params.get("name");
+    setDeviceName(deviceName || "");
   }, []);
 
   return (
     <WhiteBackground>
       <div className="relative flex flex-col items-center pb-16">
-        <p className="blackText text-3xl font-semibold">{`Device: ${deviceId}`}</p>
+        <p className="blackText text-3xl font-semibold">{`Device: ${deviceName}`}</p>
 
         <div className="relative h-96 w-96">
           <Image
@@ -87,7 +93,7 @@ const DeviceDetails = () => {
           }}
         ></OrangeButton>
 
-        <TankLevel />
+        <TankLevel deviceId={deviceId} />
 
         <DeviceData />
 
@@ -96,7 +102,7 @@ const DeviceDetails = () => {
           <input
             type="text "
             className="mb-2 rounded p-1 text-right"
-            defaultValue={deviceId}
+            defaultValue={deviceName}
           />
         </div>
 

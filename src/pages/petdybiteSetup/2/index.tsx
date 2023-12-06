@@ -19,11 +19,7 @@ const ScanDevice = () => {
       fps: 10,
       qrbox: { width: 300, height: 300 },
     };
-    const html5QrcodeScanner = new Html5QrcodeScanner(
-      "reader",
-      config,
-      /* verbose= */ false
-    );
+    const html5QrcodeScanner = new Html5QrcodeScanner("reader", config, false);
     html5QrcodeScanner.render(onScanSuccess, onScanError);
   };
 
@@ -32,9 +28,21 @@ const ScanDevice = () => {
   }, []);
 
   useEffect(() => {
-    if (scannedData === "ZkO2bjgUZkO2bjgUZkO2bjgU") {
-      router.push("/petdybiteSetup/complete");
-    }
+    fetch("/api/scanDevice", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ scannedData }),
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((response) => {
+        if (response.length > 0) {
+          router.push("/petdybiteSetup/complete");
+        }
+      });
   }, [scannedData]);
 
   return (

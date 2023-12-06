@@ -1,17 +1,17 @@
 import Image from "next/image";
 import { type NextPage } from "next";
-import { useRouter } from "next/router";
 import OrangeButton from "../components/buttons/OrangeButton";
 import DarkBackground from "../components/BackgroundColor/DarkBackground";
 import { motion } from "framer-motion";
+import { signIn } from "next-auth/react";
 
 const Home: NextPage = () => {
-  const router = useRouter();
-
   return (
     <DarkBackground>
       <div className="flex h-full items-center justify-center text-center">
-        <div className="">
+        <div className="w-full">
+          <p className="text-4xl font-bold">PetdyBite</p>
+          <p className="mb-4 text-lg">A Smart Solution for Pet Owners</p>
           <motion.div
             initial={{ transform: "translateY(-50px)" }}
             transition={{ diuration: 5, ease: "easeOut" }}
@@ -28,11 +28,12 @@ const Home: NextPage = () => {
           </motion.div>
 
           <p className="mb-3 text-xl">Sign in Now!</p>
+
           <OrangeButton
             text="Sign In with Google"
             className={"text-xl"}
             onClick={() => {
-              router.push("/accountSetup/1");
+              signIn("google", { callbackUrl: "/accountSetup/1" });
             }}
           />
         </div>

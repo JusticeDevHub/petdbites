@@ -25,7 +25,7 @@ const Background = ({
         whileInView={{ opacity: 1 }}
         exit={{ opacity: 0 }}
       >
-        <div className="flex min-h-screen items-center">
+        <div className="flex min-h-full items-center">
           <div className="maxWidth px-4">{children}</div>
         </div>
       </motion.div>

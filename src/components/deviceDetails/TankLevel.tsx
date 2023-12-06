@@ -1,8 +1,10 @@
-const TankLevel = () => {
+import { getTankAmount } from "../../utils/getTankAmount";
+
+const TankLevel = ({ deviceId }: { deviceId: string }) => {
   return (
     <div className="flex w-full justify-between">
-      <BlockData type={"Water"} amount={24} />
-      <BlockData type={"Food"} amount={48} />
+      <BlockData type={"Water"} amount={getTankAmount(deviceId, "water")} />
+      <BlockData type={"Food"} amount={getTankAmount(deviceId, "food")} />
     </div>
   );
 };
