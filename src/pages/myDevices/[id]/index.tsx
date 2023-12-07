@@ -65,7 +65,6 @@ const DeviceDetails = () => {
 
   useEffect(() => {
     setupFeedingData(1);
-
     const params = new URLSearchParams(document.location.search);
     const deviceName = params.get("name");
     setDeviceName(deviceName || "");
@@ -74,7 +73,7 @@ const DeviceDetails = () => {
   return (
     <WhiteBackground>
       <div className="relative flex flex-col items-center pb-16">
-        <p className="blackText text-3xl font-semibold">{`Device: ${deviceName}`}</p>
+        <p className="blackText text-3xl font-bold opacity-70">{`Device: ${deviceName}`}</p>
 
         <div className="relative h-96 w-96">
           <Image

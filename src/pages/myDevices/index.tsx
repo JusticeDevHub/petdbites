@@ -67,8 +67,11 @@ export async function getServerSideProps(context: any) {
 
   const prisma = new PrismaClient();
 
-  const devices: z.infer<typeof DeviceType>[] =
-    await prisma.$queryRaw`SELECT * FROM Devices WHERE email = ${session?.user?.email};`;
+  const devices: z.infer<typeof DeviceType>[] = await prisma.devices.findMany({
+    where: {
+      email: session?.user?.email || "",
+    },
+  });
 
   const props: ServerSidePropType = {
     devices,

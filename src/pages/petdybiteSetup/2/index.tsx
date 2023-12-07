@@ -39,8 +39,10 @@ const ScanDevice = () => {
         return res.json();
       })
       .then((response) => {
-        if (response.length > 0) {
-          router.push("/petdybiteSetup/complete");
+        if (typeof response !== "string" && response.length > 0) {
+          router.push(
+            `/petdybiteSetup/complete?name=${response[0].deviceName}`
+          );
         }
       });
   }, [scannedData]);

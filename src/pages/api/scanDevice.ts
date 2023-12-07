@@ -11,11 +11,22 @@ const scanDevice = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const bodyParsed = z.object({ scannedData: z.string() }).parse(req.body);
     const prisma = new PrismaClient();
-    const resp: z.infer<typeof DeviceType>[] =
-      await prisma.$queryRaw`SELECT * FROM Devices WHERE id = ${bodyParsed.scannedData}`;
+    const resp: z.infer<typeof DeviceType>[] = await prisma.devices.findMany({
+      where: {
+        id: bodyParsed.scannedData,
+      },
+    });
 
     if (resp.length > 0) {
-      await prisma.$queryRaw`UPDATE Devices SET connected = true, email = ${session?.user?.email} WHERE id = ${bodyParsed.scannedData}`;
+      await prisma.devices.update({
+        where: {
+          id: bodyParsed.scannedData,
+        },
+        data: {
+          connected: true,
+          email: session?.user?.email || "",
+        },
+      });
     }
 
     res.status(200).json(resp);
