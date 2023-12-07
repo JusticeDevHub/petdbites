@@ -1,0 +1,3 @@
+{
+  "builds": [{ "src": "./", "use": "npx prisma migrate dev --name dbmigrate" }]
+}
